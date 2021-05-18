@@ -4,7 +4,7 @@
 FROM amazonlinux:latest
 
 ARG JAVA_VERSION=1.8.0
-ARG WAGGLE_DANCE_VERSION=3.9.3
+ARG WAGGLE_DANCE_VERSION=3.9.4
 ARG APIARY_EXTENSIONS_VERSION=7.2.0
 
 ENV WAGGLE_DANCE_HOME /opt/waggle-dance
@@ -20,7 +20,8 @@ RUN yum -y update && \
   && yum clean all \
   && rm -rf /var/cache/yum
 
-ADD https://repo1.maven.org/maven2/com/expediagroup/apiary/hive-hooks/${APIARY_EXTENSIONS_VERSION}/hive-hooks-${APIARY_EXTENSIONS_VERSION}.jar "${WAGGLE_DANCE_HOME}"/jars/
+COPY files/hive-hooks-7.2.1-SNAPSHOT.jar "${WAGGLE_DANCE_HOME}"/jars/
+#ADD https://repo1.maven.org/maven2/com/expediagroup/apiary/hive-hooks/${APIARY_EXTENSIONS_VERSION}/hive-hooks-${APIARY_EXTENSIONS_VERSION}.jar "${WAGGLE_DANCE_HOME}"/jars/
 
 COPY files/waggle-dance-server.yml "${WAGGLE_DANCE_HOME}"/conf/
 COPY files/waggle-dance-federation.yml "${WAGGLE_DANCE_HOME}"/conf/
